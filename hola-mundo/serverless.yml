@@ -11,7 +11,11 @@
 #
 # Happy Coding!
 
-service: curso-sls-hola-mundo # NOTE: update this with your service name
+service: curso-sls--hola-mundo1 # NOTE: update this with your service name
+
+plugins:
+ - serverless-offline
+
 #app: your-app-name
 #tenant: your-tenant-name
 
@@ -28,8 +32,8 @@ provider:
 #  region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
+# iamRoleStatements:
+#  - Effect: "Allow"
 #      Action:
 #        - "s3:ListBucket"
 #      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
@@ -59,6 +63,17 @@ provider:
 functions:
   hello:
     handler: handler.hello
+    events:
+     - http:
+         path: hola-mundo/{name}
+         method: get
+  showUser:
+    handler: handler.showUser
+    events:
+     - http:
+         path: user
+         method: post
+      
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
